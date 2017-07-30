@@ -10,29 +10,30 @@ public class BalancedBrackets {
         char[] chars = expression.toCharArray();
         Stack<Character> stack = new Stack<>();
         for (char c : chars){
-            if(isOpening(c)){
-                stack.push(c);
-                break;
-            } else
-                switch (c){
-                    case ')':
-                        if(stack.isEmpty() || stack.peek() != '('){
-                            return false;
-                        }
-                        stack.pop();
-                        break;
-                    case ']':
-                        if(stack.isEmpty() || stack.peek() != '['){
-                            return false;
-                        }
-                        stack.pop();
-                        break;
-                    case '}':
-                        if(stack.isEmpty() || stack.peek() != '{'){
-                            return false;
-                        }
-                        stack.pop();
-                        break;
+            switch (c){
+                case '(':
+                case '[':
+                case '{':
+                    stack.push(c);
+                    break;
+                case ')':
+                    if(stack.isEmpty() || stack.peek() != '('){
+                        return false;
+                    }
+                    stack.pop();
+                    break;
+                case ']':
+                    if(stack.isEmpty() || stack.peek() != '['){
+                        return false;
+                    }
+                    stack.pop();
+                    break;
+                case '}':
+                    if(stack.isEmpty() || stack.peek() != '{'){
+                        return false;
+                    }
+                    stack.pop();
+                    break;
                 }
 
         }
@@ -46,12 +47,5 @@ public class BalancedBrackets {
             String expression = in.next();
             System.out.println( (isBalanced(expression)) ? "YES" : "NO" );
         }
-    }
-
-    private static boolean isClosing(char c){
-        return c == ')' || c == ']' || c == '}';
-    }
-    private static boolean isOpening(char c){
-        return c == '(' || c == '[' || c == '{';
     }
 }
